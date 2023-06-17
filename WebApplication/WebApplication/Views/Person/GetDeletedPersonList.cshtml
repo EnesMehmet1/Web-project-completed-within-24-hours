@@ -1,0 +1,61 @@
+﻿@using EntityLayer.Concrete
+@model List<DeletedPerson>
+@{
+    ViewBag.Title = "GetDeletedPersonList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<body class="hold-transition sidebar-mini">
+
+    <section class="content-header">
+        <div>
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Silinen Üyeler</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="card card-solid">
+            <div class="card-body pb-0">
+                <div class="row d-flex align-items-stretch">
+                    @foreach (var item in Model)
+                    {
+
+
+                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                            <div class="card bg-light">
+                                <div class="card-header text-muted border-bottom-0">
+                                    Üye
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="lead"><b>@item.Person.personName @item.Person.personSurname </b></h2>
+                                            <p class="text-muted text-sm"><b>Hakkında: </b> @item.Person.personEMail  E-postalı @item.Person.PersonShaNo  sha numaralı, @item.Person.personPassword  şifreli olan üye </p>
+                                            <p class="text-muted text-sm"><b>Silinme tarihi: </b>@(((DateTime)item.deletedPersonDeletedDate).ToString("dd-MMM-yyyy")) </p>
+                                            <p class="text-muted text-sm"><b>Silinm Admin: </b>@item.AdminName </p>
+                                        </div>
+                                        <div class="col-5 text-center">
+                                            <img src="@item.Person.PersonProfileImage" alt="" class="img-circle img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="text-right">
+                                        <a href="/Person/ClearPerson/@item.deletedPersonId" class="btn btn btn-sm btn-warning">Üyeyi Yok Et!</a>
+                                        <a href="/Person/ReversePerson/@item.deletedPersonId" class="btn btn btn-sm btn-danger">Geri Yükle</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <a href="/Person/AddPerson/" class="btn btn-primary">Üye Ekle</a>
+    </section>
+</body>
+
